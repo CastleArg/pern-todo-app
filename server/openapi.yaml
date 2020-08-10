@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: todos
+  description: >-
+    Optional multiline or single-line description in
+    [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  # the various servers we can use in the ui dropdown
+  - url: 'http://localhost:5000/'
+    description: local machine
+  - url: 'http://my-dev-derver.com:6000/'
+    description: my  dev server
+paths:
+  /todos:
+    get:
+      summary: Returns the todos!.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':
+          description: A JSON array of todos
+          content:
+            application/json:
+              schema:
+                 # returns an array of todos
+                type: array
+                items:
+                  $ref: '#/components/schemas/todo'
+    post:
+      summary: ''
+      description: ''
+      operationId: ''
+      requestBody:
+        description: the new todo
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/todo'
+      responses:
+        default:
+          description: Default error sample response
+    trace:
+      summary: adsffdsfdsa
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+    put:
+      summary: dsaffdsafdasfdas
+      description: ''
+      operationId: ''
+      requestBody:
+        description: the new todo
+        content:
+          application/json:
+            schema:
+              # this points to our saved model below
+              $ref: '#/components/schemas/todo'
+      responses:
+        default:
+          description: Default error sample response
+components:
+#these are saved models so we can reuse them!
+  schemas:
+    todo:
+      type: object
+      properties:
+        description:
+          type: string

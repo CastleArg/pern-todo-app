@@ -1,0 +1,22 @@
+version: '3'
+services: 
+    server:
+      build: 
+        context: ./server
+      ports: 
+        - '5000:5000'
+      environment: 
+        env_file: .env
+      volumes: 
+        - ./server:/app
+      depends_on:
+        - db
+    db:
+      build: 
+        context: ./db
+      ports: 
+        - '5433:5432'
+      volumes: 
+        - mark-compose-db-vol:/var/lib/postgresql/data
+volumes: 
+     mark-compose-db-vol:
