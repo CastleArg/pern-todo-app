@@ -25,8 +25,6 @@ services:
     db:
       build: 
         context: ./db
-      ports: 
-        - '5433:5432'
       volumes: 
         - mark-compose-db-vol:/var/lib/postgresql/data
 volumes: 

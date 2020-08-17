@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-
+import {List, Typography} from 'antd';
 import EditTodo from "./EditTodo";
 
 const ListTodos = () => {
@@ -39,38 +39,7 @@ const ListTodos = () => {
   return (
     <Fragment>
       {" "}
-      <table className="table mt-5 text-center">
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/*<tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-          </tr> */}
-          {todos.map(todo => (
-            <tr key={todo.todo_id}>
-              <td>{todo.description}</td>
-              <td>
-                <EditTodo todo={todo} />
-              </td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteTodo(todo.todo_id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  {todos.map(x=><div>your todo: {x.description}</div>)}
     </Fragment>
   );
 };
