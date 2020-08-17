@@ -43,6 +43,7 @@ function App() {
                         </Switch>
                     </div>
                     <div>I'm the footer</div>
+                    <div>2020 mark industries</div>
                 </div>
             </div>
         </Router>
