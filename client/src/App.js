@@ -20,6 +20,7 @@ function App() {
                 <div className="container">
                     <header>
                         <h1>WELCOME TO MY KILLER APP!!</h1>
+                        <h2>It really rocks the party</h2>
                     </header>
                     <div>
                         <Switch>
