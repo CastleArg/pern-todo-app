@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const pool = require("../db");
+const moment = require("moment");
 router.post("/", async (req, res) => {
     console.log('oh hi I');
     try {
-        const { description } = req.body;
-        console.log(description);
+        const { description,dueDate } = req.body;
+        console.log(description, dueDate);
         const newTodo = await pool.query(
-            "INSERT INTO todo (description) VALUES($1) RETURNING *",
-            [description]
+            "INSERT INTO todo (description, due_date) VALUES($1, $2) RETURNING *",
+            [description, dueDate]
         );
 
         res.json(newTodo.rows[0]);
@@ -23,10 +24,10 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
 
-        console.log('getting stuff I changed again again');
+        console.log('getting stuff I changed again againsdddss');
         const allTodos = await pool.query("SELECT * FROM todo");
         console.log('got stuff');
-        res.json(allTodos.rows);
+        res.json(allTodos.rows.map(x=> {return {...x, due_date: x.date,foo:'bard'}}));
     } catch (err) {
         return res.status(500).send({message:err});
     }

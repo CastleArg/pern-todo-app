@@ -4,25 +4,29 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
 } from "react-router-dom";
-// import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 //components
-
+import { PageHeader } from 'antd';
 import InputTodo from "./components/InputTodo";
 import ListTodos from "./components/ListTodos";
-//const { Header, Footer, Content } = Layout;
+import { Typography } from 'antd';
+
+const { Title } = Typography;
+const { Header, Footer, Content, Sider } = Layout;
 
 function App() {
     return (
         <Router>
-            <div>
-                <div className="container">
-                    <header>
-                        <h1>WELCOME TO MY KILLER APP!!</h1>
-                        <h2>It really rocks the party</h2>
-                    </header>
-                    <div>
+            <Layout>
+                <Header>
+                    <Title style={{ color: "#ffffff" }}>mark's killer app</Title>
+                </Header>
+                <Layout className="layout">
+
+                    <Content style={{ padding: '50px 50px' }}>
                         <Switch>
                             <Route path="/form">
                                 <InputTodo />
@@ -31,21 +35,21 @@ function App() {
                                 <ListTodos />
                                 <Link to="/form">CREATE</Link>
                             </Route>
-                            <Route exact path="/">
-                                <div>I'm the homepage
-                           <Link to="/form">The Form</Link>
-                                    <Link to="/list">The List</Link>
-                                </div>
+                            <Route exact path="/banana">
+                                <Redirect to="/list" />
                             </Route>
+
                             <Route path="*">
                                 <div>woops we couldn't find that page</div>
                             </Route>
                         </Switch>
-                    </div>
-                    <div>I'm the footer</div>
-                    <div>2020 mark industries</div>
-                </div>
-            </div>
+                    </Content>
+                    <Footer>
+                        <div>I'm the footer</div>
+                        <div>2020 mark industries</div>
+                    </Footer>
+                </Layout>
+            </Layout>
         </Router>
     );
 }

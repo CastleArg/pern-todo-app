@@ -1,38 +1,69 @@
 import React, { Fragment, useState } from "react";
-
+import { Form, Input, Button, Checkbox , Radio, Switch, DatePicker} from 'antd';
+import { useHistory } from "react-router-dom";
 const InputTodo = () => {
-  const [description, setDescription] = useState("");
+    // const [description, setDescription] = useState("");
+    // const [isImportant, setIsImportant] = useState(false);
+    let history = useHistory();
+    const onSubmitForm = async formValues => {
+        console.log(formValues);
+     
+        
 
-  const onSubmitForm = async e => {
-    e.preventDefault();
-    try {
-      const body = { description };
-      const response = await fetch("http://localhost:5000/todos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
+        try {
+            const body = { ...formValues };
+            const response = await fetch("http://localhost:5000/todos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body)
+            });
+            history.push('/list');
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
 
-      window.location = "/";
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
 
-  return (
-    <Fragment>
-      <h1 className="text-center mt-5">Pern Todo List</h1>
-      <form className="d-flex mt-5" onSubmit={onSubmitForm}>
-        <input
-          type="text"
-          className="form-control"
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-        />
-        <button className="btn btn-success">Add</button>
-      </form>
-    </Fragment>
-  );
+
+
+    return (
+        <Fragment>
+            <h1>Pern Todo List</h1>
+            <Form
+                onFinish={onSubmitForm}
+            >
+                <Form.Item
+                    label="Description"
+                    name="description"
+                    
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item valuePropName="checked"
+                    label="Is Important"
+                    name="isImportant"
+                >
+                    <Checkbox />
+                </Form.Item>
+
+                <Form.Item
+                    label="due date"
+                    name="dueDate"
+                   
+                >
+                     <DatePicker  />
+                   
+
+                </Form.Item>
+
+
+                <Button type="primary" htmlType="submit">
+                    Submit
+               </Button>
+            </Form>
+        </Fragment>
+    );
 };
 
 export default InputTodo;
