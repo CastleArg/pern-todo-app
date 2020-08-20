@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
         console.log('got stuff');
         res.json(allTodos.rows.map(x=> {return {...x, due_date: x.date,foo:'bard'}}));
     } catch (err) {
-        return res.status(500).send({message:err});
+        return res.status(500).json({message:err});
     }
 });
 
