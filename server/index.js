@@ -12,6 +12,12 @@ const cors = require("cors");
 var todoRouter = require('./routes/todo');
 
 //middleware
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 app.use(cors());
 app.use(express.json()); //req.body
 app.use('/todos', todoRouter);
