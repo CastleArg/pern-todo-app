@@ -1,4 +1,5 @@
 require('dotenv').config();
+const port = process.env.PORT || 443;
 const express = require("express");
 
 const swaggerUi = require('swagger-ui-express');
@@ -15,6 +16,6 @@ app.use(cors());
 app.use(express.json()); //req.body
 app.use('/todos', todoRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log("server has started on port 5000");
 });
