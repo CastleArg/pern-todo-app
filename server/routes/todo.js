@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const pool = require("../db");
 const moment = require("moment");
+console.log(pool);
 router.post("/", async (req, res) => {
     console.log('oh hi I');
     try {
