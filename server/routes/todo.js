@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 const pool = require("../db");
 const moment = require("moment");
-console.log(pool);
+//console.log(pool);
 router.post("/", async (req, res) => {
     console.log('oh hi I');
     try {
-        const { description,dueDate } = req.body;
+        const { description, dueDate } = req.body;
         console.log(description, dueDate);
         const newTodo = await pool.query(
             "INSERT INTO todo (description, due_date) VALUES($1, $2) RETURNING *",
@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
         res.json(newTodo.rows[0]);
     } catch (err) {
         console.log(err);
-        return res.status(500).send({message:err});
+        return res.status(500).send({ message: err });
     }
 });
 
@@ -24,13 +24,12 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
     try {
-
-        console.log('getting stuff I changed again againsdddss');
         const allTodos = await pool.query("SELECT * FROM todo");
         console.log('got stuff');
-        res.json(allTodos.rows.map(x=> {return {...x, due_date: x.date,foo:'bard'}}));
+        res.json(allTodos.rows.map(x => { return { ...x, due_date: x.date, foo: 'bard' } }));
     } catch (err) {
-        return res.status(500).json({message:err});
+        console.log(err);
+        return res.status(500).json({ message: err });
     }
 });
 
@@ -38,7 +37,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        
+
         const { id } = req.params;
         const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [
             id
@@ -54,15 +53,15 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
 
-        const { id } = req.params;
-        const { description } = req.body;
-        const updateTodo = await pool.query(
-            "UPDATE todo SET description = $1 WHERE todo_id = $2",
-            [description, id]
-        );
+    const { id } = req.params;
+    const { description } = req.body;
+    const updateTodo = await pool.query(
+        "UPDATE todo SET description = $1 WHERE todo_id = $2",
+        [description, id]
+    );
 
-        res.json("Todo was updated!");
-  
+    res.json("Todo was updated!");
+
 });
 
 //delete a todo
