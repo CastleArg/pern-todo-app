@@ -13,15 +13,16 @@ var todoRouter = require('./routes/todo');
 
 //middleware
 
+app.use(cors());
+app.use(express.json()); //req.body
+app.use('api/todos', todoRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.use(cors());
-app.use(express.json()); //req.body
-app.use('/todos', todoRouter);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.listen(port, () => {
-  console.log("server has started on port 5000");
+  console.log(`server has started on port ${port}`);
 });

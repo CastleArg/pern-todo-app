@@ -9,7 +9,7 @@ const ListTodos = () => {
 
     const deleteTodo = async id => {
         try {
-            const deleteTodo = await fetch(`${process.env.REACT_APP_API_URL}/todos/${id}`, {
+            const deleteTodo = await fetch(`/api/todos/${id}`, {
                 method: "DELETE"
             });
 
